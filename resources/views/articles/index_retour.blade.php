@@ -78,7 +78,7 @@
         <td>{{ $article->sousCategorie->nomSousCategorie }}</td>
         <td>{{ $article->reference }}</td>
         <td>{{ $article->nomArticle }}</td>     
-        <td> <img src="{{ $article->photo }}" alt="" ></td>
+        <td> <img src="{{ $article->photo }}" alt="" width="60" height="60" ></td>
         <td>{{ $article->marque }}</td>
         <td>{{ $article->stock }}</td>
         <td>{{ $article->getprix() }}</td>

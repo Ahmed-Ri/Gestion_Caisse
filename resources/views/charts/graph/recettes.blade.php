@@ -64,6 +64,7 @@
         if (window.innerWidth <= 720) {
             graph.style.flexDirection = 'column';
             graph.style.width = '100%';
+            graph.style.height = '550px';
 
             for (var i = 0; i < divs.length; i++) {
                 divs[i].style.marginLeft = '0';

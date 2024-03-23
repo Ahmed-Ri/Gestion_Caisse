@@ -3,9 +3,9 @@
       tabindex="-1">
       <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
-              <div class="modal-header px-5 text-center blue-text">
-                  <h1 class="modal-title fs-5 mx-auto">Moyen de paiement</h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <div class="modal-header text-center blue-text">
+                  <h1 class="modal-title fs-5 text-center">Moyen de paiement</h1>
+                  <button type="button" class="btn-close mr-3 mb-2" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
 
 
@@ -62,7 +62,7 @@
           <div class="modal-content">
               <div class="modal-header blue-text">
                   <h1 class="modal-title fs-5 text-center" id="exampleModalToggleLabel2">Confirmer l'encaissement</h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  <button type="button" class="btn-close mb-3" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body blue-text">
                   Avez-vous bien encaisser le montant de la vente ?
@@ -82,9 +82,9 @@
           <div class="modal-content">
               <div class="modal-header blue-text">
                   <h5 class="modal-title" id="modalEditerTicketLabel">Encaissement enregistré !</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  <button type="button" class="btn-close mb-5" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <div class="modal-body text-center blue-text">                
+              <div class="modal-body text-center blue-text">
                   <p id="totalCommande"></p>
                   <p id="typeDePaiementSelectionne"></p>
               </div>
@@ -102,11 +102,15 @@
       <div class="modal-dialog modal-dialog-centered modal-sm">
           <div class="modal-content">
               <div class="modal-header">
-                  <h5 class="modal-title" id="modalTicketDeCaisseLabel">SHOP RADAR</h5>
+                  <h5 class="modal-title text-center" id="modalTicketDeCaisseLabel">Magasin ZenShop</h5>
                   <button type="button" class="btn-close mb-3" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <h4 class="modal-title text-center" style="font-weight: 400;">PLACE DU PONT, 69000</h4>
-              <h4 class="modal-title text-center" style="font-weight: 400;">DUPLICATA TIKCET</h4>
+
+              <h4 class="modal-title text-center" style="font-size: 17px;font-weight: 100;" >30 avenue jean-jaurès-96007 Lyon</h4>
+              <h4 class="modal-title text-center" style="font-size: 17px;font-weight: 100;" >01 23 45 67 89 -www.ZenShop.com</h4>
+              <h4 class="modal-title text-center" style="font-size: 17px;font-weight: 100;" >Ticket N°2023-12-10-003</h4>
+              <h4 class="modal-title text-center" style="font-size: 17px;font-weight: 100;" >Date et heure 19/01/2024 à 12h32 </h4>
+              <h4 class="modal-title text-center" style="font-size: 17px;font-weight: 100;" >Logiciel de caisse Zen Shop V1.3</h4>
               <div class="modal-body">
                   <table class="table">
                       <thead>
@@ -117,7 +121,8 @@
                                   data-total=" {{ getPrice(Cart::subtotal()) }} "
                                   data-prixht="{{ $article->model ? $article->model->prixHT : $article->prixHT }}"
                                   data-prixttc="{{ $article->model ? $article->model->prixTTC : $article->prixTTC }}"
-                                  data-tva="{{ $article->model ? $article->model->TVA : $article->TVA }}">
+                                  data-tva="{{ $article->model ? $article->model->TVA : $article->TVA }}"
+                                  create_at="{{ $article->model ? $article->model->created_at : $article->created_at }}">
 
                                   <!-- Affichage de l'article -->
                               </div>
@@ -127,6 +132,8 @@
                           <!-- Les détails de la commande seront ajoutés ici -->
                       </tbody>
                   </table>
+                  <h4 class="modal-title text-center" style="font-size: 17px;font-weight: 100;" >MERCI DE VOTRE VISITE, A BIENTOT! </h4>
+
               </div>
           </div>
       </div>
@@ -183,26 +190,26 @@
           var moyenDePaiementChoisi = sessionStorage.getItem('moyenDePaiementChoisi');
           var totalCommande = '{{ getPrice(Cart::subtotal()) }}';
           document.getElementById('typeDePaiementSelectionne').textContent = 'Moyen de paiement: ' +
-              moyenDePaiementChoisi;       
-          document.getElementById('totalCommande').textContent = 'Montant: ' + totalCommande;        
+              moyenDePaiementChoisi;
+          document.getElementById('totalCommande').textContent = 'Montant: ' + totalCommande;
       });
 
-      
-//Script edition ticket
+
+      //Script edition ticket
       document.getElementById('btnEditerTicket').addEventListener('click', function() {
           var detailsCommandeHTML = '';
           var articles = document.querySelectorAll('.article');
           var moyenDePaiementChoisi = sessionStorage.getItem('moyenDePaiementChoisi');
 
-          
+
           detailsCommandeHTML += `
     <table>
         <thead>
             <tr>
                 <th>Qté</th>             
                 <th>ARTICLE</th>
-                <th>PU</th>
-                <th>TTC</th>
+                <th>PU EUR</th>
+                <th>TTC EUR</th>
             </tr>
         </thead>
         <tbody>`;
@@ -247,9 +254,9 @@
         <thead>
             <tr>
                 <th>TX TVA</th>
-                <th>HT</th>
-                <th>TVA</th>
-                <th>TTC</th>
+                <th>HT EUR</th>
+                <th>TVA EUR</th>
+                <th>TTC EUR</th>
             </tr>
         </thead>
         <tbody>`
@@ -264,6 +271,7 @@
               var quantity = parseFloat(article.getAttribute('data-qty'));
               var tva = parseFloat(article.getAttribute('data-tva'));
               var subtotal = parseFloat(article.getAttribute('data-subtotal'));
+              var create_at = parseFloat(article.getAttribute('created_at'));
 
               var montantTVA = (tva / 100) * (ht * quantity);
               montantTVA = montantTVA.toFixed(2);

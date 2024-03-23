@@ -15,7 +15,7 @@ class SousCategoriesSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
-        $SousCategorie = ['vêtement Femme','vêtement Homme', 'Chaussures Femme','Chaussures Homme','vêtement Adulte','vêtement Enfant'];
+        $SousCategorie = ['vêtements Femme','vêtements Homme', 'Chaussures Femme','Chaussures Homme','vêtements Adulte','vêtements Enfant'];
         foreach (range(1, 10) as $index) {
             $nomSousCategorie = $SousCategorie[array_rand($SousCategorie)];
             DB::table('sous_categories')->insert([

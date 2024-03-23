@@ -112,11 +112,11 @@ class CardController extends Controller
                 // Si la quantité est 1, retirez l'article du panier
                 Cart::remove($cartItem->rowId);
             }
-            return redirect()->route('articles.index');
+            return redirect()->route('index.retour');
         } else {
             // Ajouter l'article avec un prix TTC négatif
             Cart::add($article->id, $article->nomArticle, 1, -1 * $article->prixTTC)->associate('App\Models\Article');
-            return redirect()->route('articles.index');
+            return redirect()->route('index.retour');
         }
     }
     public function AjoutArticle(Request $request)

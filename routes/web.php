@@ -44,8 +44,4 @@ Route::get('/daterange', function () {
 });
 
 
-//vider panier
-Route::get('/viderPanier', function () {
-    Cart::destroy();
-});
 
